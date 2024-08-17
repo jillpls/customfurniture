@@ -38,7 +38,5 @@ fn all_assets_loaded(
     credits_music: Option<Res<CreditsMusic>>,
     gameplay_music: Option<Res<GameplayMusic>>,
 ) -> bool {
-        interaction_assets.is_some()
-        && credits_music.is_some()
-        && gameplay_music.is_some()
+    interaction_assets.is_some() && credits_music.is_some() && gameplay_music.is_some()
 }

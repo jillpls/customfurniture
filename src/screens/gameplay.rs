@@ -3,16 +3,17 @@
 use bevy::{input::common_conditions::input_just_pressed, prelude::*};
 
 use crate::{
-    asset_tracking::LoadResource, audio::Music, demo::level::spawn_level as spawn_level_command,
+    asset_tracking::LoadResource, audio::Music, demo::level::spawn_level as spawn_level_command, demo::level::spawn_banana,
     screens::Screen,
 };
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(OnEnter(Screen::Gameplay), spawn_level);
+    app.add_systems(OnEnter(Screen::Gameplay), spawn_banana);
 
     app.load_resource::<GameplayMusic>();
-    app.add_systems(OnEnter(Screen::Gameplay), play_gameplay_music);
-    app.add_systems(OnExit(Screen::Gameplay), stop_music);
+    // app.add_systems(OnEnter(Screen::Gameplay), play_gameplay_music);
+    // app.add_systems(OnExit(Screen::Gameplay), stop_music);
 
     app.add_systems(
         Update,
