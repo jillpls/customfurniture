@@ -6,6 +6,8 @@ mod dev_tools;
 mod screens;
 mod theme;
 
+use avian2d::debug_render::PhysicsDebugPlugin;
+use avian2d::PhysicsPlugins;
 use bevy::{
     asset::AssetMetaCheck,
     audio::{AudioPlugin, Volume},
@@ -24,6 +26,9 @@ impl Plugin for AppPlugin {
 
         // Spawn the main camera.
         app.add_systems(Startup, spawn_camera);
+
+        app.add_plugins(PhysicsPlugins::default());
+        app.add_plugins(PhysicsDebugPlugin::default());
 
         // Add Bevy plugins.
         app.add_plugins(
@@ -82,9 +87,11 @@ enum AppSet {
 }
 
 fn spawn_camera(mut commands: Commands) {
+    let mut cam = Camera2dBundle::default();
+    cam.projection.scale /= 2.;
     commands.spawn((
         Name::new("Camera"),
-        Camera2dBundle::default(),
+        cam,
         // Render all UI to this camera.
         // Not strictly necessary since we only use one camera,
         // but if we don't use this component, our UI will disappear as soon
